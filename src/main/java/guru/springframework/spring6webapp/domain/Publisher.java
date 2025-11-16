@@ -5,39 +5,35 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-public class Book {
+public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String title;
-    private String isbn;
+    private String name;
+    private String address;
+    private String city;
+    private String state;
+    private String zip;
 
-    @ManyToMany
-    @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
-    )
-    private Set<Author> authors = new HashSet<>();
-
-    @ManyToOne
-    private Publisher publisher;
+    @OneToMany(mappedBy = "publisher")
+    private Set<Book> books;
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "Publisher{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", authors=" + authors +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
                 '}';
     }
 
@@ -48,8 +44,8 @@ public class Book {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Book book = (Book) o;
-        return getId() != null && Objects.equals(getId(), book.getId());
+        Publisher publisher = (Publisher) o;
+        return getId() != null && Objects.equals(getId(), publisher.getId());
     }
 
     @Override
