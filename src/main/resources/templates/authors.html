@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sprig Framework playground</title>
+</head>
+<body>
+    <h1>Books</h1>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Books</th>
+        </tr>
+        <tr th:each="author : ${authors}">
+            <td th:text="${author.id}">123</td>
+            <td th:text="${author.firstName}">Title</td>
+            <td th:text="${author.lastName}">Publisher</td>
+            <td th:each="book : ${author.books}">
+                <span th:text="${book.title}">Author Name</span>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
